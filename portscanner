@@ -1,0 +1,22 @@
+import socket
+
+ipAddress = input("Whats the IP address you want to scan?: ")
+scanStart = int(input("Please type a starting number: "))
+scanEnd = int(input("Please type an ending number: "))
+answer = input("Would you like to print the outcome if ports are closed?: ")
+
+def scanPort(ipAddress, scanStart, scanEnd, answer):
+    for i in range(scanStart, scanEnd):
+        try: #this try/except block tries the script, and if it encounters an error, then the script will move on to the except portion
+            newSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #first, create the socket, and specify that its an ipv4 (socket.AF_INET), and a TCP/IP type (socket.SOCK_STREAM)
+            newSocket.settimeout(1) #this sets the amount of time it wants to give the port before it gives up, so it doesn't give up too early
+            newSocket.connect(ipAddress, i) #then, have the socket connect to the ip address, aswell as the port. The port used is HTTP because its standard for web traffic
+            print ("Port" , i, "is currently open") #if the connection is sucessful, then the script will display that
+            #newSocket.sendall("Testing") #send whatever data you want
+            #response = newSocket.recv(1024) #recieve that same data, these two won't be used because I want to keep it simple, and this port scanner will only test if the port is closed or open.
+            newSocket.close() #close the socket after the operation is done
+        except: #if the connection fails, then the script will show it fails without breaking completely.
+            if answer == "yes" or answer == "y":
+                print ("Port", i, "is currently closed")
+
+scanPort(ipAddress, scanStart, scanEnd, answer)
