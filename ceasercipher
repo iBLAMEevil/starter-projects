@@ -1,0 +1,24 @@
+
+word = input("What word are you altering?: ")
+shift = int(input("How many spaces would you like to shift?: "))
+
+def ceaserShift(word, shift):
+    newWord =("")
+    for letter in word:
+        if letter.isalpha():
+            if letter.islower():
+                position = ord(letter) - 97
+                newPos = (position + shift) % 26
+                newWord += chr(newPos + 97)
+            elif letter.isupper():
+                position = ord(letter) - 65
+                newPos = (position + shift) % 26
+                newWord += chr(newPos + 65)
+        else:
+            position = ord(letter) - 48
+            newPos = (position + shift) % 10
+            newWord += chr(newPos + 48)
+    return newWord
+newWord = ceaserShift(word, shift)
+print(newWord)
+print("Here is your final cipher shifted" , shift, "characters")
