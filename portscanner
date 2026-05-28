@@ -5,7 +5,7 @@ scanStart = int(input("Please type a starting number: "))
 scanEnd = int(input("Please type an ending number: "))
 answer = input("Would you like to print the outcome if ports are closed?: ")
 
-service = {80: "HTTP",
+service = {80: "HTTP", #this is the table of protocols, these will show up once the script is ran
            443: "HTTPS",
            23: "Telnet",
            22: "SSH",
