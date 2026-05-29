@@ -20,7 +20,7 @@ service = {80: "HTTP", #this is the table of protocols, these will show up once 
 }
 
 def scanPort(ipAddress, scanStart, scanEnd, answer):
-    for i in range(scanStart, scanEnd):
+    for i in range(scanStart, scanEnd): #for every number in the range, from start to finish....
         try: #this try/except block tries the script, and if it encounters an error, then the script will move on to the except portion
             newSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #first, create the socket, and specify that its an ipv4 (socket.AF_INET), and a TCP/IP type (socket.SOCK_STREAM)
             newSocket.settimeout(1) #this sets the amount of time it wants to give the port before it gives up, so it doesn't give up too early
@@ -34,6 +34,6 @@ def scanPort(ipAddress, scanStart, scanEnd, answer):
             newSocket.close() #close the socket after the operation is done
         except: #if the connection fails, then the script will show it fails without breaking completely.
             if answer == "yes" or answer == "y":
-                print (f"Port {i} is currently closed")
+                print (f"Port {i} is currently closed") #side note, the f is needed at the start if the {i} is to be used.
 
-scanPort(ipAddress, scanStart, scanEnd, answer)
+scanPort(ipAddress, scanStart, scanEnd, answer) #call the function
